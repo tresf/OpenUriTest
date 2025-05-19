@@ -71,7 +71,7 @@
                         <configuration>
                             <target>
                                 <echo message="Clobbering JavaLauncher with our script file"/>
-                                <!-- Note: Change "echo" to "cp" to break project -->
+                                <!-- Note: Change "echo" to "cp" to break setOpenURIHandler -->
                                 <exec executable="echo">
                                     <arg value="JavaLauncher.sh"/>
                                     <arg value="target/${project.artifactId}.app/Contents/MacOS/JavaLauncher"/>
