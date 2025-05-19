@@ -25,6 +25,17 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version> <configuration>
+                <archive>
+                    <manifest>
+                        <mainClass>io.qz.misc.Main</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+            </plugin>
+            <plugin>
                 <groupId>de.perdian.maven.plugins</groupId>
                 <artifactId>macosappbundler-maven-plugin</artifactId>
                 <version>1.21.1</version>
@@ -43,6 +54,30 @@
                         <goals>
                             <goal>bundle</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>rename-javalauncher</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <echo message="Clobbering JavaLauncher with our script file"/>
+                                <!-- Step 2:  Change "echo" to "cp" to break project -->
+                                <exec executable="echo">
+                                    <arg value="JavaLauncher.sh"/>
+                                    <arg value="target/${project.artifactId}.app/Contents/MacOS/JavaLauncher"/>
+                                </exec>
+                            </target>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
